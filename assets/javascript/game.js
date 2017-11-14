@@ -7,67 +7,93 @@
   var gemValues = [];
   var images = ["assets/images/gemAqua.png", "assets/images/gemCrim.png", "assets/images/gemPurp.png", "assets/images/gemYell.png"];
 
+
 // Set all variables
   var initialize = function()
   {
   	// random number between target limits
   	target = Math.floor(Math.random() * (121 - 19) + 19);
 	
-	// prints target to page
-	$("#target").text(target);
+  	// prints target to page
+  	$("#target").text(target);
 
-	// create array of gem number values
-	for (var i = 0; i < 4; i++) {
-		gemValues[i] = Math.floor(Math.random() * (13 - 1) + 1);
-	}
-  }
+  	// // create array of gem number values
+  	// for (var i = 0; i < 4; i++) {
+  	// 	gemValues[i] = Math.floor(Math.random() * (13 - 1) + 1);
+  	// }
 
-  initialize();
+    // reset counter
+    counter = 0;
+  };
 
- 
-  // Next we create a for loop to create gems for every numberOption.
-  for (var i = 0; i < gemValues.length; i++) {
+  var gems = function()
+  {
+    // create array of gem number values
+    for (var i = 0; i < 4; i++) {
+      gemValues[i] = Math.floor(Math.random() * (13 - 1) + 1);
+    }
+    
+    // create gems with data attr.
+    for (var i = 0; i < gemValues.length; i++) {
 
     // For each iteration, we will create an imageCrystal
     var imageCrystal = $("<img>");
 
-    // First each crystal will be given the class ".gemPic".
-    // This will allow the CSS to take effect.
+    // assign class ".gemPic".
     imageCrystal.addClass("gemPic");
 
-    // Each imageCrystal will be given a src link to the crystal image
+    // src link to the image
     imageCrystal.attr("src", images[i]);
 
-    // Each imageCrystal will be given a data attribute called data-gemVal.
-    // This data attribute will be set equal to the array value.
+    // given a data attribute equal to array values
     imageCrystal.attr("data-gemVal", gemValues[i]);
 
-    // Lastly, each crystal image (with all it classes and attributes) will get added to the page.
-    $("#gems").append(imageCrystal);
+    // add to the page.
+    $("#gems").append(imageCrystal); 
+    }
+  };
+
+  var erase = function()
+  {
+    // clear images for replacement values
+    $("#gems, #score").empty();
   }
 
+  var newGame = function()
+  {
+  erase();
+  initialize();
+  gems();
+  }
 
+  newGame();
 
-  // This time, our click event applies to every single crystal on the page. Not just one.
+  // click event for crystals on page
   $(".gemPic").on("click", function() {
     
+    // store value of gem clicked on
     var gemVal = ($(this).attr("data-gemVal"));
+    
+    // converts to integer
     gemVal = parseInt(gemVal);
     
-    // We then add the gemVal to the user's "counter" which is a global variable.
-    // Every click, from every crystal adds to the global counter.
+    // add value to counter
     counter += gemVal;
 
-    // All of the same game win-lose logic applies. So the rest remains unchanged.
-    alert("New score: " + counter);
-
+    // update score count
+    $("#score").text(counter);
+    
+    // win lose functions
     if (counter === target) {
       alert("You win!");
+      $("#wins").text(++winCount);
+      newGame();
     }
 
     else if (counter >= target) {
       alert("You lose!!");
+      $("#lost").text(++loseCount);
+      newGame();
     }
 
   });
-
