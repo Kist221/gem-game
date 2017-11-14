@@ -50,10 +50,10 @@
 
   // This time, our click event applies to every single crystal on the page. Not just one.
   $(".gemPic").on("click", function() {
-
     
     var gemVal = ($(this).attr("data-gemVal"));
     gemVal = parseInt(gemVal);
+    
     // We then add the gemVal to the user's "counter" which is a global variable.
     // Every click, from every crystal adds to the global counter.
     counter += gemVal;
@@ -70,3 +70,4 @@
     }
 
   });
+
