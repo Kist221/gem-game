@@ -17,11 +17,6 @@
   	// prints target to page
   	$("#target").text(target);
 
-  	// // create array of gem number values
-  	// for (var i = 0; i < 4; i++) {
-  	// 	gemValues[i] = Math.floor(Math.random() * (13 - 1) + 1);
-  	// }
-
     // reset counter
     counter = 0;
   };
@@ -32,10 +27,9 @@
     for (var i = 0; i < 4; i++) {
       gemValues[i] = Math.floor(Math.random() * (13 - 1) + 1);
     }
-    
+
     // create gems with data attr.
     for (var i = 0; i < gemValues.length; i++) {
-
     // For each iteration, we will create an imageCrystal
     var imageCrystal = $("<img>");
 
@@ -59,18 +53,13 @@
     $("#gems, #score").empty();
   }
 
-  var newGame = function()
+  var track = function()
   {
-  erase();
-  initialize();
-  gems();
-  }
+    // click event for crystals on page
+    // $(".gemPic").on("click", function() {
+    // USED THIS INSTEAD, TIES CLICK EVENT TO CONTAINER THAT DOESN'T CHANGE
+    $("#gems").on("click", ".gemPic", function() {
 
-  newGame();
-
-  // click event for crystals on page
-  $(".gemPic").on("click", function() {
-    
     // store value of gem clicked on
     var gemVal = ($(this).attr("data-gemVal"));
     
@@ -79,6 +68,9 @@
     
     // add value to counter
     counter += gemVal;
+
+    // keep track of remainder
+    $("#remainder").text(target - counter);
 
     // update score count
     $("#score").text(counter);
@@ -96,4 +88,17 @@
       newGame();
     }
 
-  });
+    });
+  }
+
+  var newGame = function()
+  {
+  erase();
+  initialize();
+  gems();
+  }
+
+
+  newGame();
+  track();
+
