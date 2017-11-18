@@ -50,7 +50,7 @@
   var erase = function()
   {
     // clear images for replacement values
-    $("#gems, #score").empty();
+    $("#gems, #score, #remainder").empty();
   }
 
   var track = function()
@@ -94,8 +94,8 @@
   var newGame = function()
   {
   erase();
-  initialize();
   gems();
+  initialize();  
   }
 
 
