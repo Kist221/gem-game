@@ -1,2 +1,2 @@
-# week-4-game
-Recommended Gem Game
+# Week 4 Gem Game
+Recommended Gem Collector Game
